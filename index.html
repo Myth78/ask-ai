@@ -31,7 +31,7 @@
       const question = document.getElementById("question").value;
       responseDiv.innerHTML = "<div class='loading'>🤔 Thinking...</div>";
 
-      const res = await fetch("/ask", {
+      const res = await fetch("https://ask-ai-backend-lfu8.onrender.com/ask", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question })
