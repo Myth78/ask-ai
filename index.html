@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ask AI</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="background"></div>
+
+  <div class="wrapper">
+    <div class="card">
+      <h1>🤖 Ask AI</h1>
+      <p class="sub">Get answers instantly, beautifully.</p>
+      <form id="question-form">
+        <textarea id="question" placeholder="Ask me anything..." required></textarea>
+        <button type="submit">Ask</button>
+      </form>
+      <div id="response" class="response-box"></div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("question-form");
+    const responseDiv = document.getElementById("response");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const question = document.getElementById("question").value;
+      responseDiv.innerHTML = "<div class='loading'>🤔 Thinking...</div>";
+
+      const res = await fetch("/ask", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question })
+      });
+
+      const data = await res.json();
+      responseDiv.innerHTML = `<p class="ai-response">${data.answer}</p>`;
+    });
+  </script>
+</body>
+</html>
